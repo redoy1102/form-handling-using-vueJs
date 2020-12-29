@@ -90,7 +90,7 @@
               id="priority"
               class="form-control"
               v-model="selectedPriority">
-            <option v-for="priority in priorities" :key="priority" >{{priority}}</option>
+            <option v-for="priority in priorities" :key="priority">{{ priority }}</option>
           </select>
         </div>
       </div>
@@ -123,7 +123,7 @@
               </li>
             </ul>
             <p>Gender: {{ gender }}</p>
-            <p>Priority: {{selectedPriority}} </p>
+            <p>Priority: {{ selectedPriority }} </p>
             <p>Switched:</p>
           </div>
         </div>
@@ -143,8 +143,8 @@ export default {
       },
       message: '',
       sendMail: [],
-      selectedPriority:'Medium',
-      priorities:['High','Medium', 'Low' ],
+      selectedPriority: 'Medium',
+      priorities: ['High', 'Medium', 'Low'],
       isSubmitted: false,
       gender: ' '
     }
@@ -152,6 +152,17 @@ export default {
   methods: {
     submitted() {
       this.isSubmitted = true;
+      this.$http.post('https://jsonplaceholder.typicode.com/posts', {
+        Email: this.userData.email,
+        password: this.userData.password,
+        Age: this.userData.age,
+        Message: this.message,
+        SendMail: this.sendMail,
+        Gender: this.gender,
+        priority: this.priorities
+      }).then((data)=>{
+        console.log(data);
+      })
     }
   }
 }
